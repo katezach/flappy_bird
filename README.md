@@ -59,10 +59,10 @@ To see NEAT results, add an argument to the command:
   
     It is possible to parse an argument for the below hyperparameters:
     --generations       : 'Number of generation to run'
-    --pop_size          :    'Population size'
+    --pop_size          : 'Population size'
     --remove_node       : 'Probability to remove a node'
-    --remove_connection :'Probability to remove a connection')
-    --add_node          : 'Probability to add a node')
+    --remove_connection : 'Probability to remove a connection'
+    --add_node          : 'Probability to add a node'
     --add_connection    : 'Probability to add a connection'
     --target_species    : 'Number of target species'
     --plays             : 'Number of final simulations'
@@ -72,7 +72,7 @@ To execute the PPO agent, add an argument to the command:
   ~ python ppo.py
 
     It is possible to parse an argument for the below hyperparameters:
-    --episodes : 'Number of episodes to run')
+    --episodes : 'Number of episodes to run'
     --verbose  : 'Verbose'
     --render   : 'Render'
 
