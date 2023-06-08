@@ -143,22 +143,7 @@ class DQNAgent:
         plt.ylabel("Reward")
         plt.title("DQN rewards over episodes")
         plt.show()
-    """
-    def pplay(self):
-        state = env.reset()
-        done = False
-        total_reward = 0
-        render= True
-        while not done:
-            action = agent.select_action(state)
-            state, reward, done, _ = env.step(action)
-            env.render()
-            time.sleep(0.5)
-            total_reward += reward
-            print(f"Total Reward: {total_reward}")
-        # Close the environment
-        env.close()
-        """
+    
 
 if __name__ == '__main__':
     env = FlappyBirdEnvSimple()
