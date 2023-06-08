@@ -3,6 +3,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import random
+import time
 from collections import deque
 
 from matplotlib import pyplot as plt
@@ -73,14 +74,15 @@ class DQNAgent:
         self.optimizer = optim.Adam(self.dqn.parameters(), lr=0.001)
         self.loss_fn = nn.MSELoss()
 
-    def select_action(self, state):
-        # if random.random() < self.epsilon:
-        #     action = random.randint(0, self.action_size - 1)
-        # else:
-        state_tensor = torch.tensor(state, dtype=torch.float32).unsqueeze(0).to(device)
-        with torch.no_grad():
-            q_values = self.dqn(state_tensor)
-            action = q_values.argmax().item()
+    def select_action(self, state, t):
+        if random.random() < self.epsilon and t==True:
+            action = random.randint(0, self.action_size - 1)
+        else:
+
+            state_tensor = torch.tensor(state, dtype=torch.float32).to(device)
+            with torch.no_grad():
+                q_values = self.dqn(state_tensor)
+                action = q_values.argmax().item()
         return action
 
     def update(self):
@@ -116,14 +118,14 @@ class DQNAgent:
 
     def train(self, num_episodes): #, max_steps):
         self.ts_rewards = []
-
         for episode in range(num_episodes):
             state, _ = env.reset()
             done = False
             total_reward = 0
             step = 0
+            t=True
             while not done: # or step<max_steps:
-                action = agent.select_action(state)
+                action = agent.select_action(state, t)
                 next_state, reward, done, _, info = env.step(action)
                 agent.replay_buffer.push(state, action, reward, next_state, done)
                 agent.update()
@@ -141,7 +143,22 @@ class DQNAgent:
         plt.ylabel("Reward")
         plt.title("DQN rewards over episodes")
         plt.show()
-
+    """
+    def pplay(self):
+        state = env.reset()
+        done = False
+        total_reward = 0
+        render= True
+        while not done:
+            action = agent.select_action(state)
+            state, reward, done, _ = env.step(action)
+            env.render()
+            time.sleep(0.5)
+            total_reward += reward
+            print(f"Total Reward: {total_reward}")
+        # Close the environment
+        env.close()
+        """
 
 if __name__ == '__main__':
     env = FlappyBirdEnvSimple()
@@ -149,18 +166,21 @@ if __name__ == '__main__':
     # max_steps = 4000
     agent = DQNAgent(env)
     agent.train(num_episodes) #, max_steps)
-
-    # # Test the trained agent
-    # state = env.reset()
-    # done = False
-    # total_reward = 0
-    #
-    # while not done:
-    #     action = agent.select_action(state)
-    #     state, reward, done, _ = env.step(action)
-    #     total_reward += reward
-    #
-    # print(f"Total Reward: {total_reward}")
-    #
-    # # Close the environment
-    # env.close()
+    render= True
+    # Test the trained agent
+    for i in range(10):
+        state, _ = env.reset()
+        done = False
+        total_reward = 0
+        t=False
+        while not done:
+            action = agent.select_action(state,t)
+            state, reward, done, _, info = env.step(action)
+            print(state)
+            env.render()
+            time.sleep(0.02)
+            total_reward += reward
+            print(f"Total Reward: {total_reward}")
+            # Close the environment
+    env.close()
+    
