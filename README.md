@@ -4,7 +4,7 @@ This repository contains the implementation of four approaches; Heuristics, NEAT
 the Flappy Bird game. 
 
 The implementation of the game's logic and graphics wasbased on the [flappy-bird-gym](https://github.com/Talendar/flappy-bird-gym) project, by
-[@Talendar](https://github.com/Talendar). We also used the [github repository](https://github.com/markub3327/flappy-bird-gymnasium) project, by [@markub3327](https://github.com/markub3327)
+[@Talendar](https://github.com/Talendar). We also used the [github repository](https://github.com/markub3327/flappy-bird-gymnasium) project, by [@markub3327](https://github.com/markub3327).
 
 ## State space we used
 The "FlappyBird-v0" environment yields simple numerical information about the game's state as observations, including:
@@ -45,17 +45,17 @@ The "FlappyBird-v0" environment yields simple numerical information about the ga
 
 ## Run the code
 
-To run the code, run the following command:
+To run the heuristics, run the following command:
 
-    $ flappy_bird_gymnasium
-
+   
 To see NEAT results, add an argument to the command:
-  
 
+  python train.py
+  
 To execute the PPO agent, add an argument to the command:
 
-    $ flappy_bird_gymnasium --mode random
+  python ppo.py
 
 To see a Deep Q Network agent, add an argument to the command:
 
-    $ flappy_bird_gymnasium --mode dqn
+   python train.py
